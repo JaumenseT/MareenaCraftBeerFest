@@ -3,11 +3,13 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import 'react-native-gesture-handler';
 import LoginScreen from './screens/LoginScreen';
+import InfoEmpresaScreen from './screens/InfoEmpresaScreen';
 
 export const Navegador  = createStackNavigator({
-  Login: {screen: LoginScreen}
+  Login: {screen: LoginScreen},
+  InfoEmpresa: {screen: InfoEmpresaScreen}
 },
-{initialRouteName: 'Login'});
+{initialRouteName: 'InfoEmpresa'});
 
 
 const AppContainer = createAppContainer(Navegador);

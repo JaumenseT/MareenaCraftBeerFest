@@ -33,7 +33,19 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+          <View style={{flex: 1, alignSelf: 'flex-end', marginRight: 2}}>
+            <TouchableOpacity
+            style={styles.button_register}
+            //onPress={this.register}
+            >
 
+            <Text style={styles.buttonText_register}>
+                Entrar como invitado
+            </Text>
+
+            </TouchableOpacity>
+           </View>
+           <View style={{flex:5, alignContent: 'center', justifyContent: 'center'}}> 
         <Image
             style={styles.imageStyle}
             source={require('../images/mareenabeer.jpg')}>
@@ -74,7 +86,8 @@ export default class LoginScreen extends Component {
           o regístrate
         </Text>
 
-      </TouchableOpacity>      
+      </TouchableOpacity> 
+      </View>      
 
       </View>
     );
@@ -114,7 +127,20 @@ const styles = StyleSheet.create({
     marginTop: 7,
     borderRadius: 10,
     backgroundColor: "#f6e8cb"   
-  },  
+  },
+  
+  button_invitado: {
+    width: 275,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderRightWidth: 5,
+    borderLeftWidth: 5,
+    borderRightColor: '#dba470',
+    borderLeftColor: '#dba470',
+    marginTop: 7,
+    borderRadius: 10,
+    backgroundColor: "#f6e8cb",
+  },
 
   buttonText:{
     fontSize: 20,
@@ -128,7 +154,8 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color: 'black',
     fontWeight: 'bold'
-  },  
+  },
+    
 
   textInput: {
     height: 40,
@@ -146,6 +173,7 @@ const styles = StyleSheet.create({
   imageStyle: {
       width: 240,
       height: 240,
-      marginBottom: 10
+      marginBottom: 10,
+      alignSelf: 'center'
     }
 });
