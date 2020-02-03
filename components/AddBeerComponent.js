@@ -62,13 +62,15 @@ export default class AddBeerComponent extends Component{
         });
       };
 
+
+     /* <Image 
+                        style={{width: 180, height: 180, margin:25 }}
+                        source={require('../images/MarenaLogo.jpg')}
+            />*/
     render(){
       return(
         <View  style={styles.alinear}> 
-           <Image 
-                        style={{width: 180, height: 180, margin:25 }}
-                        source={require('../images/MarenaLogo.jpg')}
-            />
+           
           
                 <View style={styles.alinear}>
                 
