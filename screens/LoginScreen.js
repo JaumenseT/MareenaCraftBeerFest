@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
 import {ToastAndroid} from 'react-native';
 
 export default class LoginScreen extends Component {
@@ -34,28 +34,33 @@ export default class LoginScreen extends Component {
     return (
       <View style={styles.container}>
 
-      <TextInput
-        style={styles.textInput}
-        placeholder={"User"}
+        <Image
+            style={styles.imageStyle}
+            source={require('../images/mareenabeer.jpg')}>
+        </Image>
+
+        <TextInput
+            style={styles.textInput}
+            placeholder={"User"}
         //onChangeText={(user) => this.setState({user})}
         //value={this.state.user}  
-      />  
+        />  
 
-      <TextInput
-        style={styles.textInput}
-        placeholder={"Password"}
-        secureTextEntry={true} 
+        <TextInput
+            style={styles.textInput}
+            placeholder={"Password"}
+            secureTextEntry={true} 
         //onChangeText={(password) => this.setState({password})}
         //value={this.state.password}
-      />
+        />
 
-      <TouchableOpacity
-        style={styles.button}
+        <TouchableOpacity
+            style={styles.button}
         //onPress={this.login}
         >
 
         <Text style={styles.buttonText}>
-          Login
+          Entrar
         </Text>
 
       </TouchableOpacity>
@@ -66,7 +71,7 @@ export default class LoginScreen extends Component {
         >
 
         <Text style={styles.buttonText_register}>
-          ...or register
+          o regístrate
         </Text>
 
       </TouchableOpacity>      
@@ -81,6 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: "#8cccc3"
   },
 
   button: {
@@ -88,40 +94,58 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     marginTop: 7,
-    borderRadius: 5,
-    backgroundColor: "#4ec0a5"   
+    borderRadius: 10,
+    backgroundColor: "#eea37c",
+    borderRightWidth: 5,
+    borderLeftWidth: 5,
+    borderRightColor: '#b56a24',
+    borderLeftColor: '#b56a24',
+    marginTop: 10   
   },
 
   button_register: {
     width: 275,
     paddingTop: 8,
     paddingBottom: 8,
+    borderRightWidth: 5,
+    borderLeftWidth: 5,
+    borderRightColor: '#dba470',
+    borderLeftColor: '#dba470',
     marginTop: 7,
-    borderRadius: 5,
-    backgroundColor: "#4e4ec0"   
+    borderRadius: 10,
+    backgroundColor: "#f6e8cb"   
   },  
 
   buttonText:{
     fontSize: 20,
     textAlign:'center',
-    color: '#FFFFFF',
+    color: 'black',
     fontWeight: 'bold'
   },
 
   buttonText_register:{
     fontSize: 18,
     textAlign:'center',
-    color: '#FFFFFF',
+    color: 'black',
     fontWeight: 'bold'
   },  
 
   textInput: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'black',
     borderWidth: 1,
     width: 250,
     margin: 3,
-    fontSize: 15
-
+    fontSize: 15,
+    color: 'black',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    margin: 5
+    
   },
+  imageStyle: {
+      width: 240,
+      height: 240,
+      marginBottom: 10
+    }
 });
