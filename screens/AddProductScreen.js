@@ -44,7 +44,8 @@ export default class AddProductScreen extends Component{
       backgroundColor: '#DBA470',
       flex:1,
       alignContent:'center',
-      alignItems:'center'
+      alignItems:'center',
+    
       
     },
 

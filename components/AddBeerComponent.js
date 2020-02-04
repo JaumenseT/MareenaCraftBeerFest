@@ -25,12 +25,40 @@ import { block } from 'react-native-reanimated';
 
 
 export default class AddBeerComponent extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-          filePath: {},
-        };
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      beerName:"",
+      beerDescription:"",
+      beerType:"",
+      Nacionalidad:"",
+      filePath: {},
+    };
+  }
+
+      Insertar(){
+        var data = new FormData();
+        data.append('my_photo', {
+          uri: this.state.filePath, // your file path string
+          name: 'my_photo.jpg',
+          type: 'image/jpg'
+        })
+        fetch('http://localhost:3000/elements', {
+            method: 'POST',
+            headers: {
+              
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              beerName:this.state.beerName,
+              beerDescription:this.state.beerDescription,
+              beerType:this.state.beerType,
+              Nacionalidad:this.state.Nacionalidad,
+              img:data,
+            })
+          })
+        }
+      
 
       chooseFile = () => {
         var options = {
@@ -66,7 +94,7 @@ export default class AddBeerComponent extends Component{
      /* <Image 
                         style={{width: 180, height: 180, margin:25 }}
                         source={require('../images/MarenaLogo.jpg')}
-            />*/
+        />*/
     render(){
       return(
         <View  style={styles.alinear}> 
@@ -75,8 +103,10 @@ export default class AddBeerComponent extends Component{
                 <View style={styles.alinear}>
                 
                 <View>
-                    <TextInput  placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput  placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(beerName) => this.setState({beerName})} value={this.state.beerName}   placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(beerDescription) => this.setState({beerDescription})} placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(beerType) => this.setState({beerType})} placeholder={"Pon el tipo de la cerverza"} style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(Nacionalidad) => this.setState({Nacionalidad})} placeholder={"Pon la Nacionalidad"} style={styles.textImput} keyboardType={"default"}/>
                 </View>
 
                 <TouchableHighlight style={styles.button}  onPress={this.chooseFile.bind(this)} >
@@ -90,7 +120,7 @@ export default class AddBeerComponent extends Component{
             style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
           />
 
-            <TouchableHighlight style={styles.buttonConf} >
+            <TouchableHighlight style={styles.buttonConf} /*onPress={this.Insertar}*/>
                 <Text style={styles.buttonText}>Confirmar</Text>
             </TouchableHighlight>
             
