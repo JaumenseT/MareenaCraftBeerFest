@@ -35,7 +35,7 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
           <View style={{flex: 1, alignSelf: 'flex-end', marginRight: 2}}>
             <TouchableOpacity
-            style={styles.button_register}
+            style={styles.button_invitado}
             //onPress={this.register}
             >
 
@@ -45,7 +45,7 @@ export default class LoginScreen extends Component {
 
             </TouchableOpacity>
            </View>
-           <View style={{flex:5, alignContent: 'center', justifyContent: 'center'}}> 
+           <View style={{flex:5, alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}> 
         <Image
             style={styles.imageStyle}
             source={require('../images/mareenabeer.jpg')}>
@@ -112,8 +112,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 5,
     borderLeftWidth: 5,
     borderRightColor: '#b56a24',
-    borderLeftColor: '#b56a24',
-    marginTop: 10   
+    borderLeftColor: '#b56a24', 
   },
 
   button_register: {
@@ -162,7 +161,6 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     width: 250,
-    margin: 3,
     fontSize: 15,
     color: 'black',
     backgroundColor: 'white',
