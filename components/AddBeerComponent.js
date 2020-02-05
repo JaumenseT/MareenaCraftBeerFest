@@ -36,25 +36,42 @@ export default class AddBeerComponent extends Component{
     }
   }
 
+  createFormData = (photo, body) => {
+    const data = new FormData();
+  
+    data.append("photo", {
+      name: photo.fileName,
+      type: photo.type,
+      uri:
+        Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+    });
+  
+    Object.keys(body).forEach(key => {
+      data.append(key, body[key]);
+    });
+  
+    return data;
+  };
+
       insertar = () => {
-         /*  var data = new FormData();
+        var data = new FormData();
         data.append('photo', {
           
           uri: this.state.photo.uri, // your file path string
           name: this.state.photo.fileName,
           type: this.state.photo.type,
-        })*/
+        })
         fetch('http://localhost:3000/cervezas', {
           method: 'POST',
           headers: {
             
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
+          body:JSON.stringify({
             id:"",
             nombre:this.state.nom,
-            descripcion:this.state.desc
-      
+            descripcion:this.state.desc,
+            photo:this.state.photo
           })
         })
       }
@@ -101,7 +118,7 @@ export default class AddBeerComponent extends Component{
                 :
                     <Image
                       source={{
-                      uri: this.state.photo
+                      uri: this.state.photo.uri
                       }}
                       style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
                     />
