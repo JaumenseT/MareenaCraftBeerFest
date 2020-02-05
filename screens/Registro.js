@@ -5,16 +5,16 @@ import { SocialIcon } from 'react-native-elements';
 
 export default class Registro extends Component {
 
-/*
+
   registraUsuario = () => {
-          fetch('http://localhost:3000', {
+          fetch('http://localhost:3000/usuarios', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: this.state.email,
+      userName: this.state.email,
       contrasenya: this.state.contrasenya,
     }),
   });
@@ -30,7 +30,7 @@ guardarContrasenya=(pass)=>{
 this.setState({contrasenya: pass})
 }
 
-*/
+
 
  // DB_URL='http://localhost:3000';
 
@@ -38,7 +38,7 @@ constructor() {
     super();
 
     this.state = {
-      correo: "",
+      email: "",
       password: ""
     }
   }
@@ -57,12 +57,16 @@ constructor() {
       
         <TextInput
             style={styles.textInput}
-            placeholder={"Usuario"}  
+            placeholder={"Email"}
+            value={this.state.email}
+            onChangeText={(email) => this.setState({email})}  
         />  
 
         <TextInput
             style={styles.textInput}
             placeholder={"Contraseña"}
+            value={this.state.contrasenya}
+            onChangeText={(contrasenya)=> this.setState({contrasenya})}
         />
 
         <TouchableOpacity style={styles.button}>
@@ -81,10 +85,6 @@ constructor() {
           type='google' 
           />
         </View>
-
-
-
-     
 
       </View>
     );
