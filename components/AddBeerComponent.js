@@ -28,76 +28,55 @@ export default class AddBeerComponent extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      beerName:"",
-      beerDescription:"",
-      beerType:"",
-      Nacionalidad:"",
-      filePath: {},
-      photo:false,
-    };
+      nom:"",
+      desc:"",
+      photo:null,
+      isUpload:false,
+  
+    }
   }
 
-      Insertar(){
-        if(this.state.photo == false){
-          this.setState({filePath: '../images/mareenabeer.jpg'})
-        }
-        var data = new FormData();
-        data.append('my_photo', {
+      insertar = () => {
+         /*  var data = new FormData();
+        data.append('photo', {
           
-          uri: this.state.filePath, // your file path string
-          name: 'my_photo.jpg',
-          type: 'image/jpg'
-        })
-        fetch('http://localhost:3000/elements', {
-            method: 'POST',
-            headers: {
-              
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              beerName:this.state.beerName,
-              beerDescription:this.state.beerDescription,
-              beerType:this.state.beerType,
-              Nacionalidad:this.state.Nacionalidad,
-              img:data,
-            })
+          uri: this.state.photo.uri, // your file path string
+          name: this.state.photo.fileName,
+          type: this.state.photo.type,
+        })*/
+        fetch('http://localhost:3000/cervezas', {
+          method: 'POST',
+          headers: {
+            
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id:"",
+            nombre:this.state.nom,
+            descripcion:this.state.desc
+      
           })
-        }
+        })
+      }
+          
+        
+        
+        
       
 
-      chooseFile = () => {
-        var options = {
-          title: 'Select Image',
-          customButtons: [
-            { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-          ],
-          storageOptions: {
-            skipBackup: true,
-            path: 'images',
-          },
-        };
-        ImagePicker.showImagePicker(options, response => {
-          console.log('Response = ', response);
-     
-          if (response.didCancel) {
-            console.log('User cancelled image picker');
-          } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-          } else if (response.customButton) {
-            console.log('User tapped custom button: ', response.customButton);
-            alert(response.customButton);
-          } else {
-            let source = response;
-            this.setState({
-              filePath: source,
-              photo:true
-            });
+        handleChoosePhoto = () => {
+          const options = {
+            noData: true,
           }
-        });
-      };
+          ImagePicker.launchImageLibrary(options, response => {
+            if (response.uri) {
+              this.setState({ photo: response, isUpload:true  })
+            }
+          })
+        }
 
     render(){
-      console.log(this.state.photo)
+    
       return(
         
         <View  style={styles.alinear}> 
@@ -105,16 +84,14 @@ export default class AddBeerComponent extends Component{
                 <View style={styles.alinear}>
                 
                 <View>
-                    <TextInput onChangeText={(beerName) => this.setState({beerName})} value={this.state.beerName}   placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput onChangeText={(beerDescription) => this.setState({beerDescription})} placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput onChangeText={(beerType) => this.setState({beerType})} placeholder={"Pon el tipo de la cerverza"} style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput onChangeText={(Nacionalidad) => this.setState({Nacionalidad})} placeholder={"Pon la Nacionalidad"} style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(text) => this.setState({nom: text})} value={this.state.nom}   placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
+                    <TextInput onChangeText={(text) => this.setState({desc: text})} value={this.state.desc} placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
                 </View>
 
-                <TouchableHighlight style={styles.button}  onPress={this.chooseFile.bind(this)} >
+                <TouchableHighlight style={styles.button}  onPress={this.handleChoosePhoto} >
                 <Text style={styles.buttonText}>Insertar Foto de perfil</Text>
             </TouchableHighlight>
-                {this.state.photo == false?
+                {this.state.isUpload == false?
                     <Image
                       source={
                         require('../images/mareenabeer.jpg')
@@ -124,13 +101,13 @@ export default class AddBeerComponent extends Component{
                 :
                     <Image
                       source={{
-                      uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
+                      uri: this.state.photo
                       }}
                       style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
                     />
                 }
 
-            <TouchableHighlight style={styles.buttonConf} /*onPress={this.Insertar}*/>
+            <TouchableHighlight style={styles.buttonConf} onPress={this.insertar}>
                 <Text style={styles.buttonText}>Confirmar</Text>
             </TouchableHighlight>
             
