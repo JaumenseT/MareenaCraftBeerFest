@@ -5,13 +5,15 @@ import 'react-native-gesture-handler';
 import LoginScreen from './screens/LoginScreen';
 import InfoEmpresaScreen from './screens/InfoEmpresaScreen';
 import AddProductScreen from './screens/AddProductScreen';
+import HomeScreen from './screens/HomeScreen';
 
 export const Navegador  = createStackNavigator({
   Login: {screen: LoginScreen},
   InfoEmpresa: {screen: InfoEmpresaScreen},
-  AddProduct: {screen: AddProductScreen}
+  AddProduct: {screen: AddProductScreen},
+  Home: {screen: HomeScreen}
 },
-{initialRouteName: 'InfoEmpresa'});
+{initialRouteName: 'Login'});
 
 
 const AppContainer = createAppContainer(Navegador);
