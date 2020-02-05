@@ -26,9 +26,9 @@ export default class LoginScreen extends Component {
       });
   }
 
-/*register = () => {
-  this.props.navigation.navigate('Register');
-}*/
+register = () => {
+  this.props.navigation.navigate('Registro');
+}
 
 render() {
   return (
@@ -79,7 +79,7 @@ render() {
 
         <TouchableOpacity
           style={styles.button_register}
-        //onPress={this.register}
+          onPress={this.register}
         >
 
           <Text style={styles.buttonText_register}>
