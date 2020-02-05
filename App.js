@@ -6,14 +6,12 @@ import LoginScreen from './screens/LoginScreen';
 import InfoEmpresaScreen from './screens/InfoEmpresaScreen';
 import AddProductScreen from './screens/AddProductScreen';
 import HomeScreen from './screens/HomeScreen';
-import Registro from './screens/Registro';
 
 export const Navegador  = createStackNavigator({
   Login: {screen: LoginScreen},
   InfoEmpresa: {screen: InfoEmpresaScreen},
   AddProduct: {screen: AddProductScreen},
   Home: {screen: HomeScreen},
-  Registro: {screen: Registro}
 },
 {initialRouteName: 'Login'});
 
