@@ -36,6 +36,15 @@ export default class AddBeerComponent extends Component{
     }
   }
 
+  componentDidMount(){
+    if(this.props.beer != ""){
+      this.setState({id: this.props.beer.id})
+     this.setState({nom: this.props.beer.nombre})
+     this.setState({desc: this.props.beer.descripcion})
+ 
+    }
+  }
+
   createFormData = (photo, body) => {
     const data = new FormData();
   
@@ -54,26 +63,57 @@ export default class AddBeerComponent extends Component{
   };
 
       insertar = () => {
-        var data = new FormData();
-        data.append('photo', {
-          
-          uri: this.state.photo.uri, // your file path string
-          name: this.state.photo.fileName,
-          type: this.state.photo.type,
-        })
-        fetch('http://localhost:3000/cervezas', {
-          method: 'POST',
-          headers: {
+        if(this.props.beer == ""){
+          var data = new FormData();
+          data.append('photo', {
             
-            'Content-Type': 'application/json',
-          },
-          body:JSON.stringify({
-            id:"",
-            nombre:this.state.nom,
-            descripcion:this.state.desc,
-            photo:this.state.photo
+            uri: this.state.photo.uri, // your file path string
+            name: this.state.photo.fileName,
+            type: this.state.photo.type,
           })
-        })
+          fetch('http://localhost:3000/cervezas', {
+            method: 'POST',
+            headers: {
+              
+              'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+              id:"",
+              nombre:this.state.nom,
+              descripcion:this.state.desc,
+              photo:this.state.photo
+            })
+          })
+        }
+        else{
+          let x={
+            id:this.state.id,
+            nombre:this.state.nom,
+            descripcion:this.state.desc
+          }
+          fetch('http://localhost:3000/cervezas/'+ x.id, {
+            method: 'PUT',
+            body: JSON.stringify(x),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8'
+            }
+          })
+            .then((resposta) => {
+              if (resposta.ok) {
+                return resposta.json();
+              } else {
+                console.log("Error fent el PUT")
+              }
+            })
+            .then(respostaJson => {
+              console.log(respostaJson);
+              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nombre + "," + x.descripcion+ "}");
+            })
+            .catch(error => {
+              console.log("Error de xarxa: " + error);
+            })
+        }
+       
       }
           
         
