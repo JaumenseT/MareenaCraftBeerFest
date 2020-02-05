@@ -1,0 +1,40 @@
+{
+    "usuarios": [
+      {
+        "id": 1,
+        "userName": "mviel",
+        "contrasenya": "hola",
+        "empresa": true
+      },
+      {
+        "id": 2,
+        "userName": "jofrna",
+        "contrasenya": "hola",
+        "empresa": false
+      },
+      {
+        "id": 3,
+        "userName": "JaumenseT",
+        "contrasenya": "jaume123",
+        "empresa": false
+      },
+      {
+        "id": 4,
+        "userName": "Manel1",
+        "contrasenya": "manel123",
+        "empresa": false
+      }
+    ],
+    "cervezas": [
+      {
+        "nombre": "Desperados",
+        "descripcion": "Cerveza al estilo mexicano",
+        "id": 1
+      },
+      {
+        "id": 2,
+        "nombre": "Radler Mahou",
+        "descripcion": "Cerveza con limón"
+      }
+    ]
+  }
