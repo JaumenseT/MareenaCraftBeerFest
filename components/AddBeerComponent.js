@@ -33,12 +33,17 @@ export default class AddBeerComponent extends Component{
       beerType:"",
       Nacionalidad:"",
       filePath: {},
+      photo:false,
     };
   }
 
       Insertar(){
+        if(this.state.photo == false){
+          this.setState({filePath: '../images/mareenabeer.jpg'})
+        }
         var data = new FormData();
         data.append('my_photo', {
+          
           uri: this.state.filePath, // your file path string
           name: 'my_photo.jpg',
           type: 'image/jpg'
@@ -85,21 +90,18 @@ export default class AddBeerComponent extends Component{
             let source = response;
             this.setState({
               filePath: source,
+              photo:true
             });
           }
         });
       };
 
-
-     /* <Image 
-                        style={{width: 180, height: 180, margin:25 }}
-                        source={require('../images/MarenaLogo.jpg')}
-        />*/
     render(){
+      console.log(this.state.photo)
       return(
+        
         <View  style={styles.alinear}> 
-           
-          
+            <Text style={styles.titulo}>Añadir Producto</Text>
                 <View style={styles.alinear}>
                 
                 <View>
@@ -112,13 +114,21 @@ export default class AddBeerComponent extends Component{
                 <TouchableHighlight style={styles.button}  onPress={this.chooseFile.bind(this)} >
                 <Text style={styles.buttonText}>Insertar Foto de perfil</Text>
             </TouchableHighlight>
-
-                <Image
-            source={{
-              uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
-            }}
-            style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
-          />
+                {this.state.photo == false?
+                    <Image
+                      source={
+                        require('../images/mareenabeer.jpg')
+                      }
+                     style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
+                    />
+                :
+                    <Image
+                      source={{
+                      uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
+                      }}
+                      style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
+                    />
+                }
 
             <TouchableHighlight style={styles.buttonConf} /*onPress={this.Insertar}*/>
                 <Text style={styles.buttonText}>Confirmar</Text>
@@ -172,6 +182,12 @@ export default class AddBeerComponent extends Component{
         textAlign:'center',
        
         
+    },
+    titulo:{
+      fontSize: 25,
+      fontWeight:"bold",
+      color:"white",
+      margin:10,
     },
     textImput: {
       fontSize: 17,
