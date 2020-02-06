@@ -19,16 +19,16 @@ export default class LoginScreen extends Component {
       .then(resp => resp.json())
       .then(data => {
         if (data.length > 0) {
-          this.props.navigation.navigate('Home', {user: data[0]});
+          this.props.navigation.navigate('Home');
         } else {
           ToastAndroid.showWithGravity('Usuario o contraseña incorrectos', ToastAndroid.LONG, ToastAndroid.TOP);
         }
       });
   }
 
-register = () => {
-  this.props.navigation.navigate('Registro');
-}
+/*register = () => {
+  this.props.navigation.navigate('Register');
+}*/
 
 render() {
   return (
@@ -79,7 +79,7 @@ render() {
 
         <TouchableOpacity
           style={styles.button_register}
-          onPress={this.register}
+        //onPress={this.register}
         >
 
           <Text style={styles.buttonText_register}>
