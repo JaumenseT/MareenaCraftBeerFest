@@ -30,7 +30,7 @@ export default class AddProductScreen extends Component{
     render(){
       return(
         <View style={styles.container}> 
-          <AddBeerComponent />
+          <AddBeerComponent idEmpresa={1} beer={""}/>
         </View>
   
   
