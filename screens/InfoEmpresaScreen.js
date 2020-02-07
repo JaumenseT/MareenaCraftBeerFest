@@ -14,12 +14,12 @@ export default class InfoEmpresaScreen extends Component {
     }
 
     componentDidMount(){
-         fetch("http://localhost:3000/marcas/1")
+         fetch("http://localhost:3000/marcas/2")
             .then((response)=> response.json())
             .then((json) => { console.log(json),this.setState({datosEmpresa: json})})
             .catch((error)=> console.log(error))
 
-        fetch("http://localhost:3000/cervezas?idMarca=1")
+        fetch("http://localhost:3000/cervezas?idMarca=2")
             .then((response)=> response.json())
             .then((json) => { console.log(json),this.setState({productos: json})})
             .catch((error)=> console.log(error))
@@ -52,8 +52,8 @@ export default class InfoEmpresaScreen extends Component {
               
               this.state.productos.map((l, i) => (
                 <ListItem
+                  onPress={() => this.props.navigation.navigate("BeerDetails",{beer: l})}
                   key={i}
-                 
                   title={<Text style={{fontSize:25}}>
                     {l.nom}</Text>}
                   bottomDivider
