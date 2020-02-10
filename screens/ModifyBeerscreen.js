@@ -24,8 +24,17 @@ import 'react-native-gesture-handler';
 import { block } from 'react-native-reanimated';
 import AddBeerComponent from '../components/AddBeerComponent'
 
-export default class AddProductScreen extends Component{
-  
+export default class ModifyBeerScreen extends Component{
+constructor(props){
+    super(props)
+    this.state={
+        beer:[]
+    }
+}  
+
+componentDidMount(){
+
+}
 
     render(){
       return(

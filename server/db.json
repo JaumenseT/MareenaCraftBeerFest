@@ -1,40 +1,95 @@
 {
-    "usuarios": [
-      {
-        "id": 1,
-        "userName": "mviel",
-        "contrasenya": "hola",
-        "empresa": true
-      },
-      {
-        "id": 2,
-        "userName": "jofrna",
-        "contrasenya": "hola",
-        "empresa": false
-      },
-      {
-        "id": 3,
-        "userName": "JaumenseT",
-        "contrasenya": "jaume123",
-        "empresa": false
-      },
-      {
-        "id": 4,
-        "userName": "Manel1",
-        "contrasenya": "manel123",
-        "empresa": false
-      }
-    ],
-    "cervezas": [
-      {
-        "nombre": "Desperados",
-        "descripcion": "Cerveza al estilo mexicano",
-        "id": 1
-      },
-      {
-        "id": 2,
-        "nombre": "Radler Mahou",
-        "descripcion": "Cerveza con limón"
-      }
-    ]
+  "marcas":[
+    {
+      "id":1,
+      "marca": "Antiga"
+    },
+  {
+      "id":2,
+      "marca": "Mareena"
+      
+  },
+  {
+      "id":3,
+      "marca": "Valencia Craft Beer"
+
   }
+
+],
+
+"cervezas":[
+        {
+          "id":1,
+          "idMarca":1,
+          "nom": "Antiga de la terreta",
+          "graduacio": 5,
+          "IBUS": 20,
+          "tokens":2
+      },
+      {
+          "id":2,
+          "idMarca":1,
+          "nom": "Serendepia",
+          "graduacio": 6,
+          "IBUS": 40,
+          "tokens":3
+      },
+      {
+          "id":3,
+          "idMarca":1,
+          "nom": "Hopland",
+          "graduacio": 57,
+          "IBUS": 70,
+          "tokens":3
+      },
+      {
+          "id":4,
+          "idMarca":2,
+          "nom": "IPA",
+          "graduacio": 8,
+          "IBUS": 80,
+          "tokens":3
+      },
+      {
+          "id":5,
+          "idMarca":2,
+          "nom": "APA",
+          "graduacio": 6,
+          "IBUS": 40,
+          "tokens":3
+      },
+      {
+          "id":6,
+          "idMarca":2,
+          "nom": "Marzen",
+          "graduacio": 4,
+          "IBUS": 45,
+          "tokens":3
+      },
+      {
+        "id":7,
+        "idMarca":3,
+        "nom": "IPA",
+        "graduacio": 7,
+        "IBUS": 80,
+        "tokens":3
+    },
+    {
+        "id":8,
+        "idMarca":3,
+        "nom": "Negra",
+        "graduacio": 9,
+        "IBUS": 40,
+        "tokens":3
+    },
+    {
+        "id":9,
+        "idMarca":3,
+        "nom": "Lager",
+        "graduacio": 3,
+        "IBUS": 30,
+        "tokens":2
+    }
+  ]
+}
+  

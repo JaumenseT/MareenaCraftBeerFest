@@ -25,72 +25,173 @@ import { block } from 'react-native-reanimated';
 
 
 export default class AddBeerComponent extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-          filePath: {},
-        };
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      id:"",
+      idMarc:"",
+      nom:"",
+      graduacio:"",
+      IBUS:"",
+      tokens:"",
+      nombreMarca:"",
+      photo:null,
+      isUpload:false,
+      productos:[]
+    }
+  }
 
-      chooseFile = () => {
-        var options = {
-          title: 'Select Image',
-          customButtons: [
-            { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-          ],
-          storageOptions: {
-            skipBackup: true,
-            path: 'images',
-          },
-        };
-        ImagePicker.showImagePicker(options, response => {
-          console.log('Response = ', response);
-     
-          if (response.didCancel) {
-            console.log('User cancelled image picker');
-          } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-          } else if (response.customButton) {
-            console.log('User tapped custom button: ', response.customButton);
-            alert(response.customButton);
-          } else {
-            let source = response;
-            this.setState({
-              filePath: source,
-            });
-          }
-        });
-      };
+  componentDidMount(){
+    fetch("http://localhost:3000/marcas/" + this.props.idEmpresa)
+    .then((response)=> response.json())
+    .then((json) => {this.setState({productos: json})})
+    .catch((error)=> console.log(error))
+   
+   
 
+    if(this.props.beer != ""){
+      this.setState({id: this.props.beer.id})
+     this.setState({idMarc: this.props.beer.idMarc})
+     this.setState({graduacio: this.props.beer.graduacio})
+     this.setState({IBUS: this.props.beer.IBUS})
+     this.setState({tokens: this.props.beer.tokens})
+     this.setState({nom: this.props.beer.nom})
+ 
+    }
+  
+  }
 
-     /* <Image 
-                        style={{width: 180, height: 180, margin:25 }}
-                        source={require('../images/MarenaLogo.jpg')}
-            />*/
-    render(){
-      return(
-        <View  style={styles.alinear}> 
-           
+  createFormData = (photo, body) => {
+    const data = new FormData();
+  
+    data.append("photo", {
+      name: photo.fileName,
+      type: photo.type,
+      uri:
+        Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+    });
+  
+    Object.keys(body).forEach(key => {
+      data.append(key, body[key]);
+    });
+  
+    return data;
+  };
+
+      insertar = () => {
+        var permitir = true;
+        if(this.state.nom =="" ||this.state.tokens == "" || this.state.graduacio == "" || this.state.IBUS == "" ){
+          permitir = false
+          return(alert("INSERTA TODOS LOS DATOS"))
+        }
+        if(this.props.beer == "" && permitir == true){
           
+          fetch('http://localhost:3000/cervezas', {
+            method: 'POST',
+            headers: {
+              
+              'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+              id:"",
+              idMarca: this.props.idEmpresa,
+              nom:this.state.nom,
+              graduacio:this.state.graduacio,
+              IBUS:this.state.IBUS,
+              tokens:this.state.tokens
+            })
+          })
+        }
+        else if(this.props.beer != "" && permitir == true){
+          let x={
+              id:this.state.id,
+              idMarca: this.props.idEmpresa,
+              nombre:this.state.nom,
+              graduacio:this.state.graduacio,
+              IBUS:this.state.IBUS,
+              tokens:this.state.tokens
+          }
+          fetch('http://localhost:3000/cervezas/'+ x.id, {
+            method: 'PUT',
+            body: JSON.stringify(x),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8'
+            }
+          })
+            .then((resposta) => {
+              if (resposta.ok) {
+                return resposta.json();
+              } else {
+                console.log("Error fent el PUT")
+              }
+            })
+            .then(respostaJson => {
+              console.log(respostaJson);
+              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nombre + "," + x.descripcion+ "}");
+            })
+            .catch(error => {
+              console.log("Error de xarxa: " + error);
+            })
+        }
+       
+      }
+          
+        
+        
+        
+      
+
+        handleChoosePhoto = () => {
+          const options = {
+            noData: true,
+          }
+          ImagePicker.launchImageLibrary(options, response => {
+            if (response.uri) {
+              this.setState({ photo: response, isUpload:true  })
+            }
+          })
+        }
+
+    render(){
+    
+      return(
+        
+        <View  style={styles.alinear}> 
+            <Text style={styles.titulo}>Añadir Producto</Text>
                 <View style={styles.alinear}>
-                
+                  <View style={{flexDirection:"row"}}>
+                    <TextInput onChangeText={(text) => this.setState({nom: text})} value={this.state.nom}   placeholder={"Nombre"}  style={styles.textImput} keyboardType={"default"} />
+                  </View>
                 <View>
-                    <TextInput  placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput  placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
+                  
+                   
+                    <View style={{flexDirection:"row"}}>
+                    <TextInput onChangeText={(text) => this.setState({graduacio: text})} value={this.state.graduacio}   placeholder={"graduacion"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    <TextInput onChangeText={(text) => this.setState({IBUS: text})} value={this.state.IBUS}   placeholder={"IBUS"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    <TextInput onChangeText={(text) => this.setState({tokens: text})} value={this.state.tokens}   placeholder={"tokens"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    </View>
                 </View>
 
-                <TouchableHighlight style={styles.button}  onPress={this.chooseFile.bind(this)} >
+                <TouchableHighlight style={styles.button}  onPress={this.handleChoosePhoto} >
                 <Text style={styles.buttonText}>Insertar Foto de perfil</Text>
             </TouchableHighlight>
+                {this.state.isUpload == false?
+                    <Image
+                      source={
+                        require('../images/mareenabeer.jpg')
+                      }
+                     style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
+                    />
+                :
+                    <Image
+                      source={{
+                      uri: this.state.photo.uri
+                      }}
+                      style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
+                    />
+                }
 
-                <Image
-            source={{
-              uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
-            }}
-            style={{ width: 150, height: 150, borderWidth:1, borderColor:'black', marginTop:20, marginBottom:10 }}
-          />
-
-            <TouchableHighlight style={styles.buttonConf} >
+            <TouchableHighlight style={styles.buttonConf} onPress={this.insertar}>
                 <Text style={styles.buttonText}>Confirmar</Text>
             </TouchableHighlight>
             
@@ -143,6 +244,12 @@ export default class AddBeerComponent extends Component{
        
         
     },
+    titulo:{
+      fontSize: 25,
+      fontWeight:"bold",
+      color:"white",
+      margin:10,
+    },
     textImput: {
       fontSize: 17,
       fontWeight: 'bold',
@@ -151,7 +258,18 @@ export default class AddBeerComponent extends Component{
       margin:5,
       backgroundColor:'white',
       borderRadius: 10,
+      width:300,
 
+    },
+    numericImput:{
+      fontSize: 17,
+      fontWeight: 'bold',
+      borderColor:"black",
+      borderWidth:2,
+      margin:5,
+      width: 93,
+      backgroundColor:'white',
+      borderRadius: 10,
     },
     alinear:{
       alignItems: "center",
