@@ -15,7 +15,7 @@ export const Navegador  = createStackNavigator({
   Home: {screen: HomeScreen},
   //Registro: {screen: RegistroScreen}
 },
-{initialRouteName: 'Login'});
+{initialRouteName: 'Home'});
 
 
 const AppContainer = createAppContainer(Navegador);
