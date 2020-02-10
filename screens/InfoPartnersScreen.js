@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,ScrollView } from 'react-native';
-import Constants from 'expo-constants';
 import {ButtonGroup,ListItem} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import InfoEmpresa from './Info';
-import InfoHorarioScreen from './InfoHorarioScreen';
 
 const list = [
   {
@@ -47,9 +41,9 @@ updateIndex (selectedIndex) {
 }
 moveToEvent(selectedIndex){
   if(selectedIndex==0){
-    this.props.navigation.navigate('InfoEvent')
+    this.props.navigation.navigate('InfoHorario');
   }else if(selectedIndex==2){
-    this.props.navigation.navigate('Info')
+    this.props.navigation.navigate('InfoEmpresaMareenaBeer');
   }
 }
   render() {
@@ -97,7 +91,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
     padding: 8,
   },
