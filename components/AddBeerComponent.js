@@ -42,21 +42,14 @@ export default class AddBeerComponent extends Component{
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/marcas/" + this.props.idEmpresa)
-    .then((response)=> response.json())
-    .then((json) => {this.setState({productos: json})})
-    .catch((error)=> console.log(error))
-   
-   
-
-    if(this.props.beer != ""){
+    if(this.props.mode == 2){
+      //Al renderizar no se muestran los datos que se pasan por los props
       this.setState({id: this.props.beer.id})
-     this.setState({idMarc: this.props.beer.idMarc})
-     this.setState({graduacio: this.props.beer.graduacio})
-     this.setState({IBUS: this.props.beer.IBUS})
-     this.setState({tokens: this.props.beer.tokens})
-     this.setState({nom: this.props.beer.nom})
- 
+      this.setState({idMarc: this.props.beer.idMarc})
+      this.setState({graduacio: this.props.beer.graduacio})
+      this.setState({IBUS: this.props.beer.IBUS})
+      this.setState({tokens: this.props.beer.tokens})
+      this.setState({nom: this.props.beer.nom}) 
     }
   
   }
@@ -84,7 +77,7 @@ export default class AddBeerComponent extends Component{
           permitir = false
           return(alert("INSERTA TODOS LOS DATOS"))
         }
-        if(this.props.beer == "" && permitir == true){
+        if(this.props.mode == 1 && permitir == true){
           
           fetch('http://localhost:3000/cervezas', {
             method: 'POST',
@@ -102,11 +95,11 @@ export default class AddBeerComponent extends Component{
             })
           })
         }
-        else if(this.props.beer != "" && permitir == true){
+        else if(this.props.mode == 2 && permitir == true){
           let x={
-              id:this.state.id,
+              id:this.props.beer.id,
               idMarca: this.props.idEmpresa,
-              nombre:this.state.nom,
+              nom:this.state.nom,
               graduacio:this.state.graduacio,
               IBUS:this.state.IBUS,
               tokens:this.state.tokens
@@ -127,7 +120,7 @@ export default class AddBeerComponent extends Component{
             })
             .then(respostaJson => {
               console.log(respostaJson);
-              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nombre + "," + x.descripcion+ "}");
+              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nom + "," + x.graduacio+ "}");
             })
             .catch(error => {
               console.log("Error de xarxa: " + error);
@@ -153,11 +146,15 @@ export default class AddBeerComponent extends Component{
         }
 
     render(){
-    
+      console.log("show "+this.state.nom)
       return(
         
         <View  style={styles.alinear}> 
-            <Text style={styles.titulo}>Añadir Producto</Text>
+        {this.props.mode == 1?
+          <Text style={styles.titulo}>Añadir Producto</Text>:
+          <Text style={styles.titulo}>Modificar Producto</Text>
+        }
+            
                 <View style={styles.alinear}>
                   <View style={{flexDirection:"row"}}>
                     <TextInput onChangeText={(text) => this.setState({nom: text})} value={this.state.nom}   placeholder={"Nombre"}  style={styles.textImput} keyboardType={"default"} />

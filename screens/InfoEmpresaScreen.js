@@ -14,6 +14,9 @@ export default class InfoEmpresaScreen extends Component {
     }
 
     componentDidMount(){
+        let x = this.props.navigation.getParam('beer')
+        this.setState({cerveza: x})
+
          fetch("http://localhost:3000/marcas/2")
             .then((response)=> response.json())
             .then((json) => { console.log(json),this.setState({datosEmpresa: json})})
@@ -60,6 +63,17 @@ export default class InfoEmpresaScreen extends Component {
                 />
               ))
             }
+            
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.props.navigation.navigate("AddProduct",{data: this.state.datosEmpresa.id})}
+            >
+
+          <Text style={styles.buttonText}>
+            Añadir
+        </Text>
+
+        </TouchableOpacity>
           </ScrollView>
                 </View>
             </View>
@@ -92,5 +106,18 @@ const styles = StyleSheet.create({
         marginRight:15,
         marginLeft:15, 
         flex:1
-    }
+    
+    },
+    button: {
+        width: 275,
+        paddingTop: 8,
+        paddingBottom: 8,
+        marginTop: 7,
+        borderRadius: 10,
+        backgroundColor: "#eea37c",
+        borderRightWidth: 5,
+        borderLeftWidth: 5,
+        borderRightColor: '#b56a24',
+        borderLeftColor: '#b56a24',
+      },
 })

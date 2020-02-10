@@ -25,12 +25,23 @@ import { block } from 'react-native-reanimated';
 import AddBeerComponent from '../components/AddBeerComponent'
 
 export default class AddProductScreen extends Component{
-  
+  constructor(props){
+    super(props);
+    this.state = {
+      idEmpresa: 0,
+    }
+  }
+
+  componentDidMount(){
+    let x = this.props.navigation.getParam('data')
+        this.setState({idEmpresa: x})
+  }
+
 
     render(){
       return(
         <View style={styles.container}> 
-          <AddBeerComponent idEmpresa={1} beer={""}/>
+          <AddBeerComponent idEmpresa={this.state.idEmpresa} mode={1} beer={""}/>
         </View>
   
   

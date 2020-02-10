@@ -28,18 +28,20 @@ export default class ModifyBeerScreen extends Component{
 constructor(props){
     super(props)
     this.state={
-        beer:[]
+        beers:[]
     }
 }  
 
 componentDidMount(){
-
+    let x = this.props.navigation.getParam('beer')
+    this.setState({beers: x}) 
+    
 }
 
     render(){
       return(
         <View style={styles.container}> 
-          <AddBeerComponent idEmpresa={1} beer={""}/>
+          <AddBeerComponent idEmpresa={this.state.beers.idMarca} mode={2} beer={this.state.beers}/>
         </View>
   
   

@@ -11,27 +11,36 @@ export default class BeerDetailsScreen extends Component {
             marcainfo:[],
             cerveza:[],
         }
+        
     }
 
     componentDidMount(){
-
-
         let x = this.props.navigation.getParam('beer')
         this.setState({cerveza: x})
 
-        fetch("http://localhost:3000/marcas?id=" + x.idMarca)
+        fetch("http://localhost:3000/marcas/" +  x.idMarca)
         .then((response)=> response.json())
-        .then((json) => {console.log(json),this.setState({marcainfo: json})})
+        .then((json) => { console.log(json),this.setState({marcainfo: json})})
         .catch((error)=> console.log(error))
        
 
     }
 
+    borrar = () =>{
+        console.log(this.state.cerveza.id)
+        fetch('http://localhost:3000/cervezas/' + this.state.cerveza.id, {
+            method: 'DELETE',
+            })
+            .then(res => res.text()) 
+            .then(res => console.log(res))
+            this.props.navigation.navigate("InfoEmpresa",{beer: this.state.cerveza.idMarca})
+    }
+
 
  
     render() {
-     
-      
+        console.log(this.state.marcainfo.marca)
+        
         return(
             <View style={styles.container}>
                 <View style={{flex: 0.4, flexDirection:"row"}}>
@@ -45,11 +54,28 @@ export default class BeerDetailsScreen extends Component {
                         </Image>
                     </View>
                 </View>
-                <View style={{flex: 0.5}}>
-                        <Text style={styles.textStyle}>Marca:{this.state.marcainfo.marca}</Text>
-                        <Text style={styles.textStyle}>Graduacion: {this.state.cerveza.graduacio}</Text>
-                        <Text style={styles.textStyle}>IBUS: {this.state.cerveza.IBUS}</Text>
-                        <Text style={styles.textStyle}>tokens: {this.state.cerveza.tokens}</Text>
+                <View style={{flex: 0.5, width:400,height:300}}>
+                        <ListItem
+                             
+                                title={<Text style={styles.textStyle}>Marca:{this.state.marcainfo.marca}</Text>}
+                                bottomDivider
+                        />
+                        <ListItem
+                                title={<Text style={styles.textStyle}>Graduacion: {this.state.cerveza.graduacio}</Text>}
+                                bottomDivider
+                        />
+                        <ListItem
+                                title={<Text style={styles.textStyle}>IBUS: {this.state.cerveza.IBUS}</Text>}
+                                bottomDivider
+                        />
+                        <ListItem
+                                title={<Text style={styles.textStyle}>tokens: {this.state.cerveza.tokens}</Text>}
+                                bottomDivider
+                        />
+                        
+                        
+                        
+                        
                     </View>
                     <View style={{flex: 0.1, flexDirection:"row"}}>
                         <TouchableOpacity
@@ -64,7 +90,7 @@ export default class BeerDetailsScreen extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={this.login}
+                            onPress={this.borrar}
                         >
 
                             <Text style={styles.buttonText}>
@@ -92,7 +118,7 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     textStyle: {
-        margin: 25,
+        margin: 2,
         fontSize: 20,
         fontWeight: 'bold'
     },
