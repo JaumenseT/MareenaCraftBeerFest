@@ -25,7 +25,7 @@ export class Producto extends Component {
     }
 
     leerMarca = () => {
-        navigate('Home', {name: this.state.idMarca});
+        navigate('Home', {idMarcas: this.state.idMarca});
     }
 
     borrar = () => {
