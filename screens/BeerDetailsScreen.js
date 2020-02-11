@@ -56,7 +56,7 @@ export default class BeerDetailsScreen extends Component {
                 </View>
                 <View style={{flex: 0.5, width:400,height:300}}>
                         <ListItem
-                             
+                                onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: this.state.marcainfo})}
                                 title={<Text style={styles.textStyle}>Marca:{this.state.marcainfo.marca}</Text>}
                                 bottomDivider
                         />

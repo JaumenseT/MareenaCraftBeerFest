@@ -34,23 +34,6 @@ export default class CassaScreen extends React.Component {
     .then((json) => { console.log(json),this.setState({cervezas: json})})
     .catch((error)=> console.log(error))
 
-    this.state.marcas.map((l,i)=>{
-    /*  let cer = []
-      this.state.cervezas.map((z,x)=>{
-        if(z.idMarca == l.id){
-          cer.push(z);
-        }
-
-      })*/
-      list.push({
-        id:l.id,
-        marca: l.marca,
-        cervezas:"h",
-
-      })
-    
-      console.log(list)
-    })
   }
 
   listar = () => {
@@ -64,6 +47,9 @@ export default class CassaScreen extends React.Component {
             id:z.id,
             idMarca:z.idMarca,
             nom:z.nom,
+            graduacio: z.graduacio,
+            IBUS: z.IBUS,
+            tokens:z.tokens
           });
         }
 
@@ -91,7 +77,7 @@ export default class CassaScreen extends React.Component {
                 data={list}
                 renderItem={({item})=>(
                   <View>
-                      <TouchableOpacity onPress={() => console.log('hola')}>
+                      <TouchableOpacity onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: item})}>
                         <View style={{backgroundColor:'white',borderBottomWidth:1,flex:1}}>
                           
                           <Text>{item.marca}</Text> 
@@ -99,7 +85,7 @@ export default class CassaScreen extends React.Component {
                             data={item.cervezas}
                             renderItem={({item})=>(
                               <View>
-                                <TouchableOpacity onPress={() => console.log('hola')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
                               <View style={{backgroundColor:'green',borderBottomWidth:1,flex:1}}>
                           
                                 <Text>{item.nom}</Text> 

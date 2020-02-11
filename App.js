@@ -42,6 +42,7 @@ const HomeMovementScreen= createStackNavigator(
   {
     Home: CasaScreen,
     BeerDetails: BeerDetailsScreen,
+    InfoEmpresa:InfoEmpresaScreen,
   },
   {
     initialRouteName: "Home"

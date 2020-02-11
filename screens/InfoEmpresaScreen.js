@@ -14,15 +14,17 @@ export default class InfoEmpresaScreen extends Component {
     }
 
     componentDidMount(){
-        let x = this.props.navigation.getParam('beer')
-        this.setState({cerveza: x})
+        
+        let x = this.props.navigation.getParam('emp')
+       
 
-         fetch("http://localhost:3000/marcas/2")
-            .then((response)=> response.json())
-            .then((json) => { console.log(json),this.setState({datosEmpresa: json})})
-            .catch((error)=> console.log(error))
+        fetch("http://localhost:3000/marcas/" + x.id)
+        .then((response)=> response.json())
+        .then((json) => { console.log(json),this.setState({datosEmpresa: json})})
+        .catch((error)=> console.log(error))
 
-        fetch("http://localhost:3000/cervezas?idMarca=2")
+
+        fetch("http://localhost:3000/cervezas?idMarca=" + x.id)
             .then((response)=> response.json())
             .then((json) => { console.log(json),this.setState({productos: json})})
             .catch((error)=> console.log(error))
