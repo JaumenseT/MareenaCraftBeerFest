@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,Image } from 'react-native';
-import Constants from 'expo-constants';
 import {ButtonGroup} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import InfoPartnersScreen from './InfoPartnersScreen';
-import InfoHorarioScreen from './InfoHorarioScreen';
 
 
 export default class InfoEmpresaMareenaBeerScreen extends React.Component {
@@ -25,9 +19,9 @@ updateIndex (selectedIndex) {
 }
 moveToEvent(selectedIndex){
   if(selectedIndex==0){
-    this.props.navigation.navigate('InfoEvent')
+    this.props.navigation.navigate('InfoHorario')
   }else if(selectedIndex==1){
-    this.props.navigation.navigate('InfoPart')
+    this.props.navigation.navigate('InfoPartners')
   }
 }
   render() {
@@ -50,10 +44,9 @@ moveToEvent(selectedIndex){
           <View style={{flex:0.9,alignSelf:'center',}}>
             <Image
               style={{width: 120, height: 120, marginTop: 50,alignSelf:'center'}}
-              source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+              source={require('../images/mareenabeer.jpg')}
             />
             <Text style={{fontSize:30, marginTop: 30,fontWeight: 'bold'}}>Marina Craft Beer</Text>
-
           </View>
       </View>
     );
@@ -64,7 +57,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
     padding: 8,
   },

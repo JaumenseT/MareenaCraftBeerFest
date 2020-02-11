@@ -3,6 +3,7 @@ import { Text, View, StyleSheet , Dimensions} from 'react-native';
 import MapView,{Marker} from 'react-native-maps';
 
 
+
 export default class MapScreen extends React.Component {
 
   setMarkerRef = (ref) => {
@@ -19,8 +20,8 @@ export default class MapScreen extends React.Component {
                     latitudeDelta: 0.0143,
                     longitudeDelta: 0.0134,
                 }}
-                showsUserLocation
-                showsTraffic
+                //showsUserLocation
+                //showsTraffic
                 onRegionChangeComplete={() => this.marker.showCallout()}
                 >
                   <Marker

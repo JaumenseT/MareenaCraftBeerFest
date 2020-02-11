@@ -28,21 +28,30 @@ export default class AddBeerComponent extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      id:"",
+      idMarc:"",
       nom:"",
-      desc:"",
+      graduacio:"",
+      IBUS:"",
+      tokens:"",
+      nombreMarca:"",
       photo:null,
       isUpload:false,
-  
+      productos:[]
     }
   }
 
   componentDidMount(){
-    if(this.props.beer != ""){
+    if(this.props.mode == 2){
+      //Al renderizar no se muestran los datos que se pasan por los props
       this.setState({id: this.props.beer.id})
-     this.setState({nom: this.props.beer.nombre})
-     this.setState({desc: this.props.beer.descripcion})
- 
+      this.setState({idMarc: this.props.beer.idMarc})
+      this.setState({graduacio: this.props.beer.graduacio})
+      this.setState({IBUS: this.props.beer.IBUS})
+      this.setState({tokens: this.props.beer.tokens})
+      this.setState({nom: this.props.beer.nom}) 
     }
+  
   }
 
   createFormData = (photo, body) => {
@@ -63,14 +72,13 @@ export default class AddBeerComponent extends Component{
   };
 
       insertar = () => {
-        if(this.props.beer == ""){
-          var data = new FormData();
-          data.append('photo', {
-            
-            uri: this.state.photo.uri, // your file path string
-            name: this.state.photo.fileName,
-            type: this.state.photo.type,
-          })
+        var permitir = true;
+        if(this.state.nom =="" ||this.state.tokens == "" || this.state.graduacio == "" || this.state.IBUS == "" ){
+          permitir = false
+          return(alert("INSERTA TODOS LOS DATOS"))
+        }
+        if(this.props.mode == 1 && permitir == true){
+          
           fetch('http://localhost:3000/cervezas', {
             method: 'POST',
             headers: {
@@ -79,17 +87,22 @@ export default class AddBeerComponent extends Component{
             },
             body:JSON.stringify({
               id:"",
-              nombre:this.state.nom,
-              descripcion:this.state.desc,
-              photo:this.state.photo
+              idMarca: this.props.idEmpresa,
+              nom:this.state.nom,
+              graduacio:this.state.graduacio,
+              IBUS:this.state.IBUS,
+              tokens:this.state.tokens
             })
           })
         }
-        else{
+        else if(this.props.mode == 2 && permitir == true){
           let x={
-            id:this.state.id,
-            nombre:this.state.nom,
-            descripcion:this.state.desc
+              id:this.props.beer.id,
+              idMarca: this.props.idEmpresa,
+              nom:this.state.nom,
+              graduacio:this.state.graduacio,
+              IBUS:this.state.IBUS,
+              tokens:this.state.tokens
           }
           fetch('http://localhost:3000/cervezas/'+ x.id, {
             method: 'PUT',
@@ -107,7 +120,7 @@ export default class AddBeerComponent extends Component{
             })
             .then(respostaJson => {
               console.log(respostaJson);
-              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nombre + "," + x.descripcion+ "}");
+              Alert.alert("Dades actualitzades correctament {" + x.id + "," + x.nom + "," + x.graduacio+ "}");
             })
             .catch(error => {
               console.log("Error de xarxa: " + error);
@@ -133,16 +146,27 @@ export default class AddBeerComponent extends Component{
         }
 
     render(){
-    
+      console.log("show "+this.state.nom)
       return(
         
         <View  style={styles.alinear}> 
-            <Text style={styles.titulo}>Añadir Producto</Text>
+        {this.props.mode == 1?
+          <Text style={styles.titulo}>Añadir Producto</Text>:
+          <Text style={styles.titulo}>Modificar Producto</Text>
+        }
+            
                 <View style={styles.alinear}>
-                
+                  <View style={{flexDirection:"row"}}>
+                    <TextInput onChangeText={(text) => this.setState({nom: text})} value={this.state.nom}   placeholder={"Nombre"}  style={styles.textImput} keyboardType={"default"} />
+                  </View>
                 <View>
-                    <TextInput onChangeText={(text) => this.setState({nom: text})} value={this.state.nom}   placeholder={"Pon el nombre de la cerveza"}  style={styles.textImput} keyboardType={"default"}/>
-                    <TextInput onChangeText={(text) => this.setState({desc: text})} value={this.state.desc} placeholder={"Pon la descripcion de la cerveza"} style={styles.textImput} keyboardType={"default"}/>
+                  
+                   
+                    <View style={{flexDirection:"row"}}>
+                    <TextInput onChangeText={(text) => this.setState({graduacio: text})} value={this.state.graduacio}   placeholder={"graduacion"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    <TextInput onChangeText={(text) => this.setState({IBUS: text})} value={this.state.IBUS}   placeholder={"IBUS"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    <TextInput onChangeText={(text) => this.setState({tokens: text})} value={this.state.tokens}   placeholder={"tokens"}  style={styles.numericImput} keyboardType={"numeric"}/>
+                    </View>
                 </View>
 
                 <TouchableHighlight style={styles.button}  onPress={this.handleChoosePhoto} >
@@ -231,7 +255,18 @@ export default class AddBeerComponent extends Component{
       margin:5,
       backgroundColor:'white',
       borderRadius: 10,
+      width:300,
 
+    },
+    numericImput:{
+      fontSize: 17,
+      fontWeight: 'bold',
+      borderColor:"black",
+      borderWidth:2,
+      margin:5,
+      width: 93,
+      backgroundColor:'white',
+      borderRadius: 10,
     },
     alinear:{
       alignItems: "center",

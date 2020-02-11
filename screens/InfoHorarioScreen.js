@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,Image,Dimensions } from 'react-native';
-import Constants from 'expo-constants';
 import {ButtonGroup} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import InfoEmpresaMareenaBeerScreen from './InfoEmpresaMareenaBeerScreen';
-import InfoPartnersScreen from './InfoPartnersScreen';
 
 var rangoHor = Dimensions.get('screen').height;
 var rangoVer = Dimensions.get('screen').width;
@@ -27,9 +21,9 @@ updateIndex (selectedIndex) {
 }
 moveToEvent(selectedIndex){
   if(selectedIndex==1){
-    this.props.navigation.navigate('InfoPart')
+    this.props.navigation.navigate('InfoPartners')
   }else if(selectedIndex==2){
-    this.props.navigation.navigate('Info')
+    this.props.navigation.navigate('InfoEmpresaMareenaBeer');
   }
 }
   render() {
@@ -49,10 +43,10 @@ moveToEvent(selectedIndex){
           buttons={buttons}
           />
           </View>
-          <View style={{flex:0.9}}>
+          <View style={{flex:0.90}}>
             <Image
           style={{width:rangoVer,height:rangoHor,marginLeft:-5}}
-          source={require('./horario.jpg')}
+          source={require('../images/horario.jpeg')}
         />
           </View>
       </View>
@@ -64,7 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     padding: 8,
     backgroundColor:'#8cccc3',
   },

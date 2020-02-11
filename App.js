@@ -6,6 +6,11 @@ import LoginScreen from './screens/LoginScreen';
 import InfoEmpresaScreen from './screens/InfoEmpresaScreen';
 import AddProductScreen from './screens/AddProductScreen';
 import HomeScreen from './screens/HomeScreen';
+import BeerDetailsScreen from './screens/BeerDetailsScreen';
+import InfoEmpresaMareenaBeerScreen from './screens/InfoEmpresaMareenaBeerScreen';
+import InfoHorarioScreen from './screens/InfoHorarioScreen';
+import InfoPartnersScreen from './screens/InfoPartnersScreen';
+//import MapScreen from './screens/MapScreen';
 //import RegistroScreen from './screens/RegistroScreen';
 
 export const Navegador  = createStackNavigator({
@@ -13,9 +18,17 @@ export const Navegador  = createStackNavigator({
   InfoEmpresa: {screen: InfoEmpresaScreen},
   AddProduct: {screen: AddProductScreen},
   Home: {screen: HomeScreen},
+  BeerDetails: {screen: BeerDetailsScreen},
+  InfoEmpresaMareenaBeer: {screen: InfoEmpresaMareenaBeerScreen},
+  InfoHorario: {screen: InfoHorarioScreen},
+  InfoPartners: {screen: InfoPartnersScreen},
+  //Map: {screen: MapScreen},
+
   //Registro: {screen: RegistroScreen}
 },
-{initialRouteName: 'Login'});
+{initialRouteName: 'InfoHorario',
+headerMode: 'none'
+})
 
 
 const AppContainer = createAppContainer(Navegador);
