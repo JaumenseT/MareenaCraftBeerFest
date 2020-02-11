@@ -43,7 +43,7 @@ moveToEvent(selectedIndex){
           buttons={buttons}
           />
           </View>
-          <View style={{flex:0.9}}>
+          <View style={{flex:0.90}}>
             <Image
           style={{width:rangoVer,height:rangoHor,marginLeft:-5}}
           source={require('../images/horario.jpeg')}
