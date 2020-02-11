@@ -26,7 +26,9 @@ export const Navegador  = createStackNavigator({
 
   //Registro: {screen: RegistroScreen}
 },
-{initialRouteName: 'InfoHorario'});
+{initialRouteName: 'InfoHorario',
+headerMode: 'none'
+})
 
 
 const AppContainer = createAppContainer(Navegador);
