@@ -37,7 +37,7 @@ const list = [
   },
 ];
 
-export default class App extends React.Component {
+export default class CasaScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
