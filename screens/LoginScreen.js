@@ -6,6 +6,10 @@ export default class LoginScreen extends Component {
 
   DB_URL = 'http://localhost:3000';
 
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +19,7 @@ export default class LoginScreen extends Component {
   }
 
   login = () => {
-    fetch(this.DB_URL + '/usuarios?userName=' + this.state.user + '&contrasenya=' + this.state.password)
+    fetch(this.DB_URL + '/usuarios?user=' + this.state.user + '&password=' + this.state.password)
       .then(resp => resp.json())
       .then(data => {
         if (data.length > 0) {

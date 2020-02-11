@@ -28,10 +28,7 @@ export default class InfoEmpresaScreen extends Component {
             .catch((error)=> console.log(error))
 
 
-    }
-
-
- 
+    } 
     render() {
      
       

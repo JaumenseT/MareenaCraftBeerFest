@@ -1,34 +1,28 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,ScrollView } from 'react-native';
-import Constants from 'expo-constants';
-import {ButtonGroup,ListItem} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import InfoEmpresa from './Info';
-import InfoHorarioScreen from './InfoHorarioScreen';
+import {ButtonGroup, ListItem} from 'react-native-elements';
 
 const list = [
   {
-    name: 'Fanta',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    name: 'San Miguel',
+    avatar_url: require('../images/san-miguel.jpg'),
   },
   {
-    name: 'Cocacola',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    name: 'Alhambra',
+    avatar_url: require('../images/alhambra.png'),
   },
   {
-    name: 'Negrita',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    name: 'Heineken',
+    avatar_url: require('../images/heineken-logo.jpg'),
   },
   {
-    name: 'Peluquería Paco',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    name: 'Mahou',
+    avatar_url: require('../images/mahou-logo.jpg'),
   },
   {
-    name: 'AntonioYMacaco',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-  },
+    name: 'Desperados',
+    avatar_url: require('../images/desperados.jpg'),
+  }
 ]
 
 export default class InfoPartnersScreen extends React.Component {
@@ -47,9 +41,9 @@ updateIndex (selectedIndex) {
 }
 moveToEvent(selectedIndex){
   if(selectedIndex==0){
-    this.props.navigation.navigate('InfoEvent')
+    this.props.navigation.navigate('InfoHorario');
   }else if(selectedIndex==2){
-    this.props.navigation.navigate('Info')
+    this.props.navigation.navigate('InfoEmpresaMareenaBeer');
   }
 }
   render() {
@@ -77,7 +71,7 @@ moveToEvent(selectedIndex){
                   key={i}
                   leftAvatar={{
                     size:'large',
-                    source: { uri: l.avatar_url }
+                    source: l.avatar_url
                     }}
                   title={<Text style={{fontSize:25}}>
                     {l.name}</Text>}
@@ -97,8 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#8cccc3',
     padding: 8,
   },
 });

@@ -1,13 +1,13 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
  import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
  import { FlatList } from 'react-native-gesture-handler';
  import { Producto } from '../components/producto';
  import { DrawerActions } from 'react-navigation';
  
- export default class HomeScreen extends Component {
-  static navigationOptions = {
-    header: null
-  };
+ export default class MarcaScreen extends Component {
+   static navigationOptions = {
+     title: 'Inicio',
+   };
  
    DB_URL= 'http://localhost:3000';
  
@@ -17,10 +17,11 @@
        productos: [],
      };
      this.getProductos();
+     {JSON.stringify(navigation.getParam('idMarcas'))}
    }
  
    getProductos = () => {
-     fetch(this.DB_URL+'/cervezas?_sort=nom')
+     fetch(this.DB_URL+'/marca?_sort=idMarcas')
        .then(resp => resp.json())
        .then(data => {       
          this.setState({productos: data});
