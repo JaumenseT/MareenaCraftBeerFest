@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, FlatList,Image,Button, TouchableOpacity,Alert,ScrollView } from 'react-native';
-import { ListItem,Icon } from 'react-native-elements';
-
 var list = [];
 
 export default class CassaScreen extends React.Component {
@@ -15,13 +13,7 @@ export default class CassaScreen extends React.Component {
     }
   }
 
-  text = (id,l) => {
-    if(id == l.idMarca){
-      return <Text>{l.nom}</Text> 
-    }
-  
-   
-  }
+
 
   componentDidMount(){
     fetch("http://localhost:3000/marcas")
@@ -70,6 +62,10 @@ export default class CassaScreen extends React.Component {
     this.listar()
     return (
       <View style={styles.container}>
+      <Image
+          style={styles.imageStyle}
+          source={require('../images/mahou-logo.jpg')}>
+      </Image>
       <ScrollView>
 
     
@@ -78,15 +74,15 @@ export default class CassaScreen extends React.Component {
                 renderItem={({item})=>(
                   <View>
                       <TouchableOpacity onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: item})}>
-                        <View style={{backgroundColor:'white',borderBottomWidth:1,flex:1}}>
+                        <View>
                           
-                          <Text>{item.marca}</Text> 
+                          <Text  style={styles.titleMarca}>{item.marca}</Text> 
                           <FlatList 
                             data={item.cervezas}
                             renderItem={({item})=>(
                               <View>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
-                              <View style={{backgroundColor:'green',borderBottomWidth:1,flex:1}}>
+                              <View style={styles.titlecerveza}>
                           
                                 <Text>{item.nom}</Text> 
                           
@@ -117,9 +113,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: "#f6e8cb",
     padding: 8,
   },
+  titleMarca: {
+    backgroundColor:'#DFD534',
+    borderBottomWidth:1,
+    flex:1,
+    fontSize:20,
+    marginTop:6,
+  },
+  titlecerveza:{
+    backgroundColor:'white',
+    borderBottomWidth:1,
+    flex:1
+  },
+  imageStyle: {
+    width: 150,
+    height: 150,
+    margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
 
 
 });
