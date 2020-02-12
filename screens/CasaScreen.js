@@ -3,6 +3,11 @@ import { Text, View, StyleSheet, FlatList,Image,Button, TouchableOpacity,Alert,S
 var list = [];
 
 export default class CassaScreen extends React.Component {
+
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props){
     super(props)
 
@@ -62,49 +67,37 @@ export default class CassaScreen extends React.Component {
     this.listar()
     return (
       <View style={styles.container}>
-      <Image
-          style={styles.imageStyle}
-          source={require('../images/mahou-logo.jpg')}>
-      </Image>
-      <ScrollView>
-
-    
-              <FlatList 
-                data={list}
-                renderItem={({item})=>(
+        <Image
+            style={styles.imageStyle}
+            source={require('../images/mahou-logo.jpg')}>
+        </Image>
+        <ScrollView>
+          <FlatList 
+            data={list}
+            renderItem={({item})=>(
+              <View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: item})}>
                   <View>
-                      <TouchableOpacity onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: item})}>
+                    <Text style={styles.titleMarca}>{item.marca}</Text> 
+                    <FlatList 
+                      data={item.cervezas}
+                      renderItem={({item})=>(
                         <View>
-                          
-                          <Text  style={styles.titleMarca}>{item.marca}</Text> 
-                          <FlatList 
-                            data={item.cervezas}
-                            renderItem={({item})=>(
-                              <View>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
-                              <View style={styles.titlecerveza}>
-                          
-                                <Text>{item.nom}</Text> 
-                          
-
-                            
-                          </View>
-                      </TouchableOpacity>
-                  </View>
-              )}
-         
-              />
-
-                            
-                          </View>
-                      </TouchableOpacity>
-                  </View>
-              )}
-         
-              />
+                          <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
+                            <View style={styles.titlecerveza}>
+                              <Text>{item.nom}</Text> 
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                    />
+                    </View>
+                  </TouchableOpacity>
+              </View>
+            )}
+          />
         </ScrollView>
       </View>
-      
     );
   }
 }
@@ -113,11 +106,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: "#f6e8cb",
+    backgroundColor: "#8cccc3",
     padding: 8,
   },
   titleMarca: {
-    backgroundColor:'#DFD534',
+    backgroundColor:'#eea37c',
     borderBottomWidth:1,
     flex:1,
     fontSize:20,
