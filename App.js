@@ -21,7 +21,7 @@ import ModifyBeerScreen from './screens/ModifyBeerscreen'
 const LoginScreens = createStackNavigator(
   {
     Login: LoginScreen,
-    Register: RegistroScreen,
+    Registro: RegistroScreen,
   },
   {
     initialRouteName: "Login"
@@ -58,7 +58,7 @@ const CervezerosScreens= createStackNavigator(
     ModifyBeer: ModifyBeerScreen
   },
 );
-const HomeBottomNavigator= createBottomTabNavigator(
+const HomeBottomNavigator = createBottomTabNavigator(
   {
     HomeMovementScreen,
     infoScreens,
@@ -90,8 +90,8 @@ export const Navegador  = createStackNavigator({
   InfoHorario: {screen: InfoHorarioScreen},
   InfoPartners: {screen: InfoPartnersScreen},
   //Map: {screen: MapScreen},
+  Registro: {screen: RegistroScreen}
 
-  //Registro: {screen: RegistroScreen}
 },
 {initialRouteName: 'InfoHorario',
 headerMode: 'none'
