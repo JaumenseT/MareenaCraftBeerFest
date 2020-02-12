@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import {ToastAndroid} from 'react-native';
 
 
-export default class RegistroScreen extends Component {
+export default class RegisterScreen extends Component {
 
   DB_URL = 'http://localhost:3000';
 
@@ -11,7 +11,7 @@ export default class RegistroScreen extends Component {
     super(props);
     this.state = {
       name: "",
-      userName: "",
+      user: "",
       password: "",
     }
   }
@@ -25,9 +25,9 @@ export default class RegistroScreen extends Component {
         console.log(data[0].id + 1);
         let dades = {
           id: data[0].id + 1,
-          userName: this.state.userName,
-          contrasenya: this.state.password,
-          nom: this.state.name
+          user: this.state.user,
+          password: this.state.password,
+          admin: false
         };
         console.log(JSON.stringify(dades));
         fetch(this.DB_URL + "/usuarios", {
@@ -39,7 +39,7 @@ export default class RegistroScreen extends Component {
         })
           .then(resp => {
             ToastAndroid.showWithGravity('Usuario registrado correctamente', ToastAndroid.LONG, ToastAndroid.TOP),
-            this.props.navigation.navigate('LoginScreen');
+            this.props.navigation.navigate('Login');
           });
 
       });
@@ -50,10 +50,16 @@ export default class RegistroScreen extends Component {
     return (
 
       <View style={styles.container}>
+        <TextInput
+          style={styles.textInput}
+          placeholder={"Name"}
+          onChangeText={(name) => this.setState({ name })}
+          value={this.state.name}
+        />
         <TextInput style={styles.textInput}
           placeholder={"Username"}
-          onChangeText={(userName) => this.setState({ userName })}
-          value={this.state.userName}
+          onChangeText={(user) => this.setState({ user })}
+          value={this.state.user}
         />
 
         <TextInput style={styles.textInput}
