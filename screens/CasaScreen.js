@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, FlatList,Image,Button, TouchableOpacity,Alert,ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements'
 var list = [];
 
 export default class CassaScreen extends React.Component {
@@ -15,18 +16,21 @@ export default class CassaScreen extends React.Component {
       cervezas:[],
       marcas:[],
       total:[],
+      usuario: [],
     }
+    
   }
 
 
 
   componentDidMount(){
-    fetch("http://localhost:3000/marcas")
+    
+    fetch("http://localhost:3000/marcas?_sort=marca")
     .then((response)=> response.json())
     .then((json) => { console.log(json),this.setState({marcas: json})})
     .catch((error)=> console.log(error))
 
-  fetch("http://localhost:3000/cervezas")
+  fetch("http://localhost:3000/cervezas?_sort=nom")
     .then((response)=> response.json())
     .then((json) => { console.log(json),this.setState({cervezas: json})})
     .catch((error)=> console.log(error))
@@ -64,9 +68,11 @@ export default class CassaScreen extends React.Component {
 
   render() {
     let id;
+    console.log("ES " + global.isAdmin)
     this.listar()
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
         <Image
             style={styles.imageStyle}
             source={require('../images/mahou-logo.jpg')}>
@@ -77,12 +83,26 @@ export default class CassaScreen extends React.Component {
             renderItem={({item})=>(
               <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("InfoEmpresa",{emp: item})}>
+=======
+        <Text>{global.isAdmin}</Text>
+      <Image
+          style={styles.imageStyle}
+          source={require('../images/mahou-logo.jpg')}>
+      </Image>
+      <ScrollView>
+
+    
+              <FlatList 
+                data={list}
+                renderItem={({item})=>(
+>>>>>>> origin/EnricNavarro
                   <View>
                     <Text style={styles.titleMarca}>{item.marca}</Text> 
                     <FlatList 
                       data={item.cervezas}
                       renderItem={({item})=>(
                         <View>
+<<<<<<< HEAD
                           <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
                             <View style={styles.titlecerveza}>
                               <Text>{item.nom}</Text> 
@@ -96,6 +116,34 @@ export default class CassaScreen extends React.Component {
               </View>
             )}
           />
+=======
+                          
+                          <Text  style={styles.titleMarca}>{item.marca}</Text> 
+                          <FlatList 
+                            data={item.cervezas}
+                            renderItem={({item})=>(
+                              <View>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate("BeerDetails",{beer: item})}>
+                              <View>
+                                <Text style={styles.titlecerveza}>{item.nom}</Text> 
+                          
+
+                            
+                          </View>
+                      </TouchableOpacity>
+                  </View>
+              )}
+         
+              />
+
+                            
+                          </View>
+                      </TouchableOpacity>
+                  </View>
+              )}
+         
+              />
+>>>>>>> origin/EnricNavarro
         </ScrollView>
       </View>
     );
@@ -113,13 +161,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#eea37c',
     borderBottomWidth:1,
     flex:1,
-    fontSize:20,
+    fontSize:25,
     marginTop:6,
   },
   titlecerveza:{
     backgroundColor:'white',
     borderBottomWidth:1,
-    flex:1
+    flex:1,
+    fontSize:20,
   },
   imageStyle: {
     width: 150,

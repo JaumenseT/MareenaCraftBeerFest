@@ -14,16 +14,24 @@ export default class LoginScreen extends Component {
     super(props);
     this.state = {
       user: "",
-      password: ""
+      password: "",
+      usuario: [],
     }
+    global.isAdmin = false;
   }
+
+  
 
   login = () => {
     fetch(this.DB_URL + '/usuarios?user=' + this.state.user + '&password=' + this.state.password)
       .then(resp => resp.json())
       .then(data => {
-        if (data.length > 0) {
-          this.props.navigation.navigate('Home', {user: data[0]});
+        this.setState({usuario : data})
+        if (this.state.usuario.length > 0) {
+          
+         global.isAdmin = this.state.usuario[0].admin
+         
+          this.props.navigation.navigate('Home', {user: this.state.usuario.admin});
         } else {
           ToastAndroid.showWithGravity('Usuario o contraseña incorrectos', ToastAndroid.LONG, ToastAndroid.TOP);
         }

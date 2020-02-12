@@ -15,6 +15,7 @@ export default class BeerDetailsScreen extends Component {
     }
 
     componentDidMount(){
+      
         let x = this.props.navigation.getParam('beer')
         this.setState({cerveza: x})
 
@@ -77,7 +78,9 @@ export default class BeerDetailsScreen extends Component {
                         
                         
                     </View>
-                    <View style={{flex: 0.1, flexDirection:"row"}}>
+
+                    {global.isAdmin?
+                        <View style={{flex: 0.1, flexDirection:"row"}}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress = {() => this.props.navigation.navigate("ModifyBeer",{beer: this.state.cerveza})}
@@ -99,6 +102,10 @@ export default class BeerDetailsScreen extends Component {
 
         </TouchableOpacity>
                     </View>
+                    :
+                    null
+                    }
+                    
 
             </View>
         );

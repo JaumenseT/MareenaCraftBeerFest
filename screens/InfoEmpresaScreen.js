@@ -62,17 +62,21 @@ export default class InfoEmpresaScreen extends Component {
                 />
               ))
             }
-            
-            <TouchableOpacity
+            {global.isAdmin?
+                <TouchableOpacity
                 style={styles.button}
                 onPress={() => this.props.navigation.navigate("AddProduct",{data: this.state.datosEmpresa.id})}
             >
+            <Text style={styles.buttonText}>
+                Añadir
+            </Text>
 
-          <Text style={styles.buttonText}>
-            Añadir
-        </Text>
-
-        </TouchableOpacity>
+            </TouchableOpacity>
+            :
+            null
+            }
+            
+          
           </ScrollView>
                 </View>
             </View>
